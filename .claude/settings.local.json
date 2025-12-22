@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pyinstaller:*)",
+      "Bash(start \"\" \"d:\\\\project\\\\youtube_download\\\\dist\\\\YouTube_Downloader.exe\")",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

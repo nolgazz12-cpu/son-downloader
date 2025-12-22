@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller pyqt6 yt-dlp requests
+      - name: Build
+        run: |
+          pyinstaller --onefile --windowed --name "YouTube_Downloader" main.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: YouTube_Downloader_Windows
+          path: dist/YouTube_Downloader.exe
+
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller pyqt6 yt-dlp requests
+      - name: Build
+        run: |
+          pyinstaller --onefile --windowed --name "YouTube_Downloader" main.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: YouTube_Downloader_Mac
+          path: dist/YouTube_Downloader.app
