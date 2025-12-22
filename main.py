@@ -287,6 +287,24 @@ class MainWindow(QMainWindow):
         """)
         toolbar_layout.addWidget(self.path_btn)
 
+        # 개발자에게 요청하기 버튼
+        self.dev_btn = QPushButton("💬 개발 요청")
+        self.dev_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #FEE500;
+                color: #3C1E1E;
+                border: none;
+                padding: 10px 15px;
+                font-size: 13px;
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #FDD835;
+            }
+        """)
+        self.dev_btn.clicked.connect(lambda: webbrowser.open('https://open.kakao.com/o/saH6LWih'))
+        toolbar_layout.addWidget(self.dev_btn)
+
         main_layout.addWidget(toolbar_widget)
 
         # 탭 바 영역
