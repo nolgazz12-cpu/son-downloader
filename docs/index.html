@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>손 다운로더 - YouTube 동영상 다운로드</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 16px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    .hero p {
+      font-size: 20px;
+      opacity: 0.9;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      margin-bottom: 30px;
+    }
+    .download-btn {
+      display: block;
+      width: 100%;
+      padding: 20px 40px;
+      background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s;
+      margin-bottom: 20px;
+    }
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255,0,0,0.4);
+    }
+    .version {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .feature {
+      text-align: center;
+      padding: 20px;
+    }
+    .feature-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+    .feature h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .feature p {
+      font-size: 14px;
+      color: #666;
+    }
+    .steps {
+      margin-top: 30px;
+    }
+    .steps h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+    .step-text {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+    }
+    .footer {
+      text-align: center;
+      color: white;
+      margin-top: 40px;
+      opacity: 0.8;
+    }
+    .footer a {
+      color: white;
+    }
+    .warning {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>손 다운로더</h1>
+      <p>YouTube 동영상을 쉽고 빠르게 다운로드하세요</p>
+    </div>
+
+    <div class="card">
+      <a href="https://github.com/gusrb/son-downloader/releases/latest/download/SonDownloader_Setup.exe" class="download-btn">
+        무료 다운로드
+      </a>
+      <p class="version">v1.0.0 | Windows 10/11</p>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">🎬</div>
+          <h3>최고 화질</h3>
+          <p>1080p 이상 고화질 다운로드</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎵</div>
+          <h3>MP3 추출</h3>
+          <p>음악만 따로 저장</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h3>빠른 속도</h3>
+          <p>고속 다운로드 지원</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🆓</div>
+          <h3>완전 무료</h3>
+          <p>광고 없이 무료 사용</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="steps">
+        <h2>설치 방법</h2>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">위의 <strong>무료 다운로드</strong> 버튼을 클릭하여 설치파일을 다운로드합니다.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>SonDownloader_Setup.exe</strong>를 실행합니다.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Chrome에서 <strong>chrome://extensions</strong>로 이동하여 개발자 모드를 켜고, 안내된 경로의 확장프로그램을 로드합니다.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">YouTube에서 다운로드하고 싶은 동영상을 열고 확장프로그램 아이콘을 클릭하세요!</div>
+        </div>
+
+        <div class="warning">
+          <strong>참고:</strong> Windows SmartScreen 경고가 뜨면 "추가 정보" → "실행"을 클릭하세요.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>문의: <a href="https://open.kakao.com/o/sRwHvGVd" target="_blank">카카오톡 오픈채팅</a></p>
+      <p style="margin-top: 8px;">Made with ❤️ by 손현규</p>
+    </div>
+  </div>
+</body>
+</html>
