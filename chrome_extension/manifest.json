@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "손 다운로더",
+  "version": "1.0.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqbbdijrVYBf6QlFlFRlDIGl+zauPLU44vMcYKIUQJi0GtwKMItrAwf64qUzrpHDemB0BhT+eDo+pw/rO+UZC4zjO3SG693/yYwPZ1c6eDEdG3w4nvNhW4Eh7S1JGEy8u1DdOQ+6hSxY4G2EGjyNKL2xGbEStrCit/8s2Erogahq7HeID1EhaF9ld9fv39EloHqDQ8XgUFKTFDDn3iv9BrGrr7/5IhtQ6pvZDbtHra3X8AluEG2mJplFnTgTuTqn9Xm2RjHGE/tGB0wqUYhJp54eElraUAbDI7yb7W0ur7UkaiUY7ZM6VMFNm/vwOkfGoQXQIOECzy+q5ZUGbybZtXwIDAQAB",
+  "description": "YouTube 동영상 다운로드",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "downloads",
+    "nativeMessaging"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*",
+    "*://*.youtu.be/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

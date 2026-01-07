@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fff;
+    }
+    .header {
+      background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+      color: white;
+      padding: 16px;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+    .content {
+      padding: 16px;
+    }
+    .status {
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .status-label {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-value {
+      font-size: 14px;
+      color: #333;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+    .status-value.detected {
+      color: #4CAF50;
+      font-weight: 500;
+    }
+    .status-value.not-detected {
+      color: #999;
+    }
+    .download-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .download-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+    }
+    .download-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .formats {
+      margin-top: 12px;
+    }
+    .format-option {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .format-option:hover {
+      border-color: #FF0000;
+      background: #fff5f5;
+    }
+    .format-option.selected {
+      border-color: #FF0000;
+      background: #fff5f5;
+    }
+    .format-option input {
+      margin-right: 10px;
+    }
+    .format-info {
+      flex: 1;
+    }
+    .format-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+    .format-desc {
+      font-size: 11px;
+      color: #666;
+    }
+    .footer {
+      padding: 12px 16px;
+      border-top: 1px solid #eee;
+      text-align: center;
+    }
+    .footer a {
+      color: #666;
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .footer a:hover {
+      color: #FF0000;
+    }
+    .loading {
+      text-align: center;
+      padding: 20px;
+    }
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #FF0000;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>손 다운로더</h1>
+    <p>YouTube 동영상 다운로드</p>
+    <p style="font-size: 10px; opacity: 0.8; margin-top: 8px; line-height: 1.4;">
+      이 앱 운영 비용은 쿠파스에서 나와요<br>
+      8시간마다 1번씩 쿠파스 열리게 해놨어요 가급적 사용해주세요<br>
+      필요한 추가기능 있으시면 아래에 개발자에게 문의하기 남겨주세요
+    </p>
+  </div>
+
+  <div class="content">
+    <div class="status">
+      <div class="status-label">현재 페이지</div>
+      <div class="status-value" id="pageStatus">확인 중...</div>
+    </div>
+
+    <div id="videoInfo" style="display: none;">
+      <div class="status">
+        <div class="status-label">동영상 제목</div>
+        <div class="status-value" id="videoTitle">-</div>
+      </div>
+
+      <div class="formats">
+        <div class="format-option selected" data-format="best">
+          <input type="radio" name="format" value="best" checked>
+          <div class="format-info">
+            <div class="format-name">최고 화질</div>
+            <div class="format-desc">MP4 - 1080p 이상</div>
+          </div>
+        </div>
+        <div class="format-option" data-format="720">
+          <input type="radio" name="format" value="720">
+          <div class="format-info">
+            <div class="format-name">HD 720p</div>
+            <div class="format-desc">MP4 - 적당한 용량</div>
+          </div>
+        </div>
+        <div class="format-option" data-format="mp3">
+          <input type="radio" name="format" value="mp3">
+          <div class="format-info">
+            <div class="format-name">MP3 오디오</div>
+            <div class="format-desc">음악만 추출</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="download-btn" id="downloadBtn">다운로드</button>
+
+      <!-- 다운로드 진행률 바 -->
+      <div id="progressContainer" style="display: none; margin-top: 12px;">
+        <div class="status-label">다운로드 진행률</div>
+        <div style="background: #e0e0e0; border-radius: 4px; height: 20px; margin-top: 6px; overflow: hidden;">
+          <div id="progressBar" style="background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); height: 100%; width: 0%; transition: width 0.3s ease; border-radius: 4px;"></div>
+        </div>
+        <div id="progressText" style="font-size: 12px; color: #666; margin-top: 4px; text-align: center;">0%</div>
+      </div>
+
+      <div class="status" style="margin-top: 12px;">
+        <div class="status-label">저장 위치</div>
+        <div class="status-value" id="downloadPath" style="cursor: pointer; color: #666;">
+          로딩 중...
+        </div>
+        <button id="changePathBtn" style="margin-top: 8px; padding: 6px 12px; font-size: 12px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">경로 변경</button>
+      </div>
+    </div>
+
+    <div id="notYoutube" style="display: none;">
+      <p style="text-align: center; color: #666; padding: 20px 0;">
+        YouTube 페이지에서 사용해주세요
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://open.kakao.com/o/sRwHvGVd" target="_blank">추가기능이 필요하면 개발자 문의</a>
+    <div style="margin-top: 8px;">
+      <a href="#" id="donateBtn" style="color: #FF6B00; font-weight: 500;">☕ 개발자 커피 한 잔 후원하기</a>
+    </div>
+  </div>
+
+  <!-- 후원 모달 -->
+  <div id="donateModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 12px; text-align: center; max-width: 280px;">
+      <h3 style="margin-bottom: 12px; color: #333;">☕ 커피 후원하기</h3>
+      <p style="font-size: 12px; color: #666; margin-bottom: 12px;">카카오톡에서 QR코드를 스캔해주세요</p>
+      <img src="kakaopay_qr.jpg" style="width: 200px; height: 200px; border-radius: 8px;">
+      <p style="font-size: 11px; color: #999; margin-top: 8px;">손현규</p>
+      <p style="font-size: 11px; color: #666; margin-top: 8px;">감사합니다 선생님<br>필요한 기능 있으시면 말씀해주세요</p>
+      <button id="closeModal" style="margin-top: 12px; padding: 8px 20px; background: #FF6B00; color: white; border: none; border-radius: 6px; cursor: pointer;">닫기</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

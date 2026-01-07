@@ -1,0 +1,39 @@
+/* Download button styles for YouTube */
+.custom-download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: 36px;
+  background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  font-family: 'YouTube Sans', 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: all 0.2s ease;
+}
+
+.custom-download-button:hover {
+  background: linear-gradient(135deg, #E60000 0%, #B30000 100%);
+  transform: scale(1.02);
+}
+
+.custom-download-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Dark theme support */
+html[dark] .custom-download-button,
+[dark] .custom-download-button {
+  background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+}
+
+html[dark] .custom-download-button:hover,
+[dark] .custom-download-button:hover {
+  background: linear-gradient(135deg, #FF3333 0%, #E60000 100%);
+}
